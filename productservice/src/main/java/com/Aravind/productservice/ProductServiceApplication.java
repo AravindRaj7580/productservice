@@ -9,6 +9,8 @@ package com.Aravind.productservice;
 import com.Aravind.productservice.InheritanceExample.joinedtable.MentorRepository;
 import com.Aravind.productservice.InheritanceExample.joinedtable.StudentRepository;
 import com.Aravind.productservice.repositories.CategoryRepository;
+import com.Aravind.productservice.repositories.OrderRepository;
+import com.Aravind.productservice.repositories.PriceRepository;
 import com.Aravind.productservice.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,17 +22,26 @@ public class ProductServiceApplication implements CommandLineRunner {
 	private StudentRepository studentRepository;
 	private CategoryRepository categoryRepository;
 	private ProductRepository productRepository;
+	private PriceRepository priceRepository;
+	private OrderRepository orderRepository;
 //	private UserRepository userRepository;
 //	public ProductServiceApplication(MentorRepository mentorRepository, StudentRepository studentRepository, UserRepository userRepository){
 //		this.mentorRepository = mentorRepository;
 //		this.studentRepository = studentRepository;
 ////		this.userRepository = userRepository;
 //	}
-	public ProductServiceApplication(MentorRepository mentorRepository, StudentRepository studentRepository, CategoryRepository categoryRepository, ProductRepository productRepository){
+	public ProductServiceApplication(MentorRepository mentorRepository,
+									 StudentRepository studentRepository,
+									 CategoryRepository categoryRepository,
+									 ProductRepository productRepository,
+									 PriceRepository priceRepository,
+									 OrderRepository orderRepository){
 		this.mentorRepository = mentorRepository;
 		this.studentRepository = studentRepository;
 		this.categoryRepository = categoryRepository;
 		this.productRepository = productRepository;
+		this.priceRepository = priceRepository;
+		this.orderRepository = orderRepository;
 //		this.userRepository = userRepository;
 	}
 	public static void main(String[] args) {
@@ -38,6 +49,7 @@ public class ProductServiceApplication implements CommandLineRunner {
 	}
 
 	@Override
+//	@Transactional
 	public void run(String... args) throws Exception {
 //		Mentor mentor = new Mentor();
 //		mentor.setName("aravind");
@@ -56,17 +68,33 @@ public class ProductServiceApplication implements CommandLineRunner {
 //		for(User u : users){
 //			System.out.println(u.getName());
 //		}
+
+
+		//-------------------------------------------------------
+
 //		Category category = new Category();
 //		category.setName("dresses");
 //		Category savedCategory = categoryRepository.save(category);
+//		Price price = new Price("100", "Rupee");
+//		Price savedprice = priceRepository.save(price);
+//
 //		Product product = new Product();
-//		product.setName("shirt");
+//		product.setTitle("shirt");
 //		product.setImage("random");
 //		product.setDescription("can wear as tops");
-//		product.setPrice(100);
+//		product.setPrice(savedprice);
 //		product.setCategory(savedCategory);
-//		productRepository.save(product);
-		
+//		Product savedProduct = productRepository.save(product);
+//		Optional<Category> category = categoryRepository.findById(UUID.fromString("38decb45-6bee-4834-93ba-596df45311d6"));
+//		Category returnedCategory = category.get();
+//		List<Product> products = returnedCategory.getProducts();
+//		System.out.print(products);
+//      JQueryMethods
+//		productRepository.deleteById(UUID.fromString("7aa72fad-4b16-45d3-a8a1-618fc636b5e1"));
+//		Product returnedprodcut = productRepository.findbyTitleAndPrice_currency("shirt", 100);
+//		System.out.println(returnedprodcut.getTitle());
+//		Product returnedProduct = productRepository.abc("shirt");
+//		System.out.println(returnedProduct.getTitle());
 
 
 	}
