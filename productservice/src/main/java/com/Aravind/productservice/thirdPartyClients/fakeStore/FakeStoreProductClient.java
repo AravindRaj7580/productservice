@@ -42,7 +42,8 @@ public class FakeStoreProductClient {
             throw new TestException("Test check");
 //            returnExceptionStatus();
         }else if(fakeStoreProductDTO == null){
-            throw new NotFoundException("fakeStoreDTO not found");
+            return null;
+            //throw new NotFoundException("fakeStoreDTO not found");
         }
         return fakeStoreProductDTO;
     }

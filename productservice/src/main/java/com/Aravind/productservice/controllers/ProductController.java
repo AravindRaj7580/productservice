@@ -24,9 +24,14 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    private GenericProductDTO getproductById(@PathVariable("id") long id) throws NotFoundException, TestException {
-        return productService.getProductById(id);
-
+    public GenericProductDTO getproductById(@PathVariable("id") long id) throws NotFoundException, TestException {
+        System.out.println("Calling methods");
+        System.out.println("Calling methods again");
+        GenericProductDTO genericProductDTO = productService.getProductById(id);
+        if(genericProductDTO == null){
+            return new GenericProductDTO();
+        }
+        return genericProductDTO;
     }
 
     @DeleteMapping("{id}")
