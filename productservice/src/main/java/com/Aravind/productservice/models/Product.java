@@ -1,5 +1,6 @@
 package com.Aravind.productservice.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -15,8 +16,8 @@ public class Product extends BaseModel {
     private Category category;
 //    private double price;
     private String image;
-//    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+//    @OneToOne
     private Price price;
 //    private int inventoryCount;
 

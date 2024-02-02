@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
@@ -19,12 +20,16 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
-    public ProductController(@Qualifier("fakeStoreService") ProductService productService){
+//    public ProductController(@Qualifier("fakeStoreService") ProductService productService){
+//        this.productService = productService;
+//    }
+    public ProductController(@Qualifier("selfProductService") ProductService productService){
         this.productService = productService;
     }
 
+
     @GetMapping("{id}")
-    public GenericProductDTO getproductById(@PathVariable("id") long id) throws NotFoundException, TestException {
+    public GenericProductDTO getproductById(@PathVariable("id") UUID id) throws NotFoundException, TestException {
         System.out.println("Calling methods");
         System.out.println("Calling methods again");
         GenericProductDTO genericProductDTO = productService.getProductById(id);

@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -35,7 +37,7 @@ public class FakeStoreProductClientTest {
 
         when(restTemplate.getForEntity(any(String.class), eq(FakeStoreProductDTO.class), 1L)).thenReturn(fakeStoreProductDTOResponseEntity);
 
-        FakeStoreProductDTO response = fakeStoreProductClient.getProductById(1L);
+        FakeStoreProductDTO response = fakeStoreProductClient.getProductById(UUID.fromString("1"));
 
         Assertions.assertNull(response);
 

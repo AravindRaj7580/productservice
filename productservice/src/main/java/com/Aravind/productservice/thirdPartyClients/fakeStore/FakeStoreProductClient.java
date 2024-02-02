@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Component
 public class FakeStoreProductClient {
 
@@ -34,11 +36,11 @@ public class FakeStoreProductClient {
         this.productURL = productURL + productPath + "/{id}";
     }
 
-    public FakeStoreProductDTO getProductById(Long id) throws NotFoundException, TestException {
+    public FakeStoreProductDTO getProductById(UUID id) throws NotFoundException, TestException {
         RestTemplate restTemplate =  restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDTO> response =  restTemplate.getForEntity(productURL, FakeStoreProductDTO.class,id);
         FakeStoreProductDTO fakeStoreProductDTO =  response.getBody();
-        if(fakeStoreProductDTO == null && id == 123){
+        if(fakeStoreProductDTO == null){
             throw new TestException("Test check");
 //            returnExceptionStatus();
         }else if(fakeStoreProductDTO == null){

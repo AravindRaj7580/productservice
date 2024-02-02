@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -21,9 +23,9 @@ public class FakeStoreProductServiceTest {
     private FakeStoreProductClient fakeStoreProductClientMock;
 @Test
     public void testGetProductByIdWhenClientReturnsNull() throws TestException, NotFoundException {
-        when(fakeStoreProductClientMock.getProductById(any(Long.class))).thenReturn(null);
+        when(fakeStoreProductClientMock.getProductById(any(UUID.class))).thenReturn(null);
 
-        GenericProductDTO response = fakeStoreProductService.getProductById(1L);
+        GenericProductDTO response = fakeStoreProductService.getProductById(UUID.fromString("1"));
 
         Assertions.assertNull(response);
 

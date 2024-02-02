@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Primary
 @Service("fakeStoreService")
 public class FakeStoreProductService implements ProductService{
@@ -39,7 +41,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDTO getProductById(Long id) throws NotFoundException, TestException {
+    public GenericProductDTO getProductById(UUID id) throws NotFoundException, TestException {
         GenericProductDTO genericProductDTO  =  convertFakeToGenericDTO(fakeStoreProductClient.getProductById(id));
         return genericProductDTO;
     }

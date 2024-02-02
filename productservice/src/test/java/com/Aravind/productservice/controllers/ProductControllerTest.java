@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 @SpringBootTest
@@ -25,24 +27,24 @@ public class ProductControllerTest {
 //    }
      @Test
      public void testGetProductByIdReturnsEmptyObjectWhenNoProductIdFound() throws TestException, NotFoundException {
-        when(productServiceMock.getProductById(any(Long.class))).thenReturn(new GenericProductDTO());
+        when(productServiceMock.getProductById(any(UUID.class))).thenReturn(new GenericProductDTO());
 //        GenericProductDTO genericProductDTOResponse = productServiceMock.getProductById(1L);
-         GenericProductDTO genericProductDTOResponse = productController.getproductById(123L);
+         GenericProductDTO genericProductDTOResponse = productController.getproductById(UUID.fromString("123"));
         Assertions.assertNotNull(genericProductDTOResponse);
     }
 @Test
     public void testGetProductByIDReturnsCorrectResponse() throws TestException, NotFoundException {
          GenericProductDTO expected = new GenericProductDTO();
-         expected.setId(1L);
+         expected.setId(UUID.fromString("1"));
          expected.setName("IPhone");
 
          GenericProductDTO toBeReturned = new GenericProductDTO();
-         toBeReturned.setId(1L);
+         toBeReturned.setId(UUID.fromString("1"));
          toBeReturned.setName("IPhone");
 
-         when(productServiceMock.getProductById(any(Long.class))).thenReturn(toBeReturned);
+         when(productServiceMock.getProductById(any(UUID.class))).thenReturn(toBeReturned);
 
-         GenericProductDTO genericProductDTOResonse = productController.getproductById(1L);
+         GenericProductDTO genericProductDTOResonse = productController.getproductById(UUID.fromString("1"));
 
          Assertions.assertEquals(genericProductDTOResonse.getId(), expected.getId());
          Assertions.assertEquals(genericProductDTOResonse.getName(), expected.getName());
