@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    private GenericProductDTO deleteProductById(@PathVariable("id") Long id){
+    private GenericProductDTO deleteProductById(@PathVariable("id") UUID id) throws TestException, NotFoundException {
         return productService.deleteProductbyId(id);
     }
 

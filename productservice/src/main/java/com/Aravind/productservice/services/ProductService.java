@@ -12,5 +12,5 @@ public interface ProductService {
     public GenericProductDTO getProductById(UUID id) throws NotFoundException, TestException;
     public GenericProductDTO createProductDTO(GenericProductDTO genericProductDTO) throws NotFoundException;
     public List<GenericProductDTO> getAllProducts();
-    public GenericProductDTO deleteProductbyId(Long id);
+    public GenericProductDTO deleteProductbyId(UUID id) throws TestException, NotFoundException;
 }

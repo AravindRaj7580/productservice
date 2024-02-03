@@ -67,7 +67,10 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public GenericProductDTO deleteProductbyId(Long id) {
-        return null;
+    public GenericProductDTO deleteProductbyId(UUID id) throws TestException, NotFoundException {
+        GenericProductDTO genericProductDTO =  getProductById(id);
+        productRepository.deleteById(id);
+        System.out.println(genericProductDTO);
+        return genericProductDTO;
     }
 }
