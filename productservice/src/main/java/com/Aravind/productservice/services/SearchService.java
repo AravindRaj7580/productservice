@@ -3,12 +3,9 @@ package com.Aravind.productservice.services;
 import com.Aravind.productservice.DTOs.GenericProductDTO;
 import com.Aravind.productservice.models.Product;
 import com.Aravind.productservice.repositories.ProductRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +16,13 @@ public class SearchService {
         this.productRepository = productRepository;
     }
     public Page<GenericProductDTO> search(String query, int pageSize, int pageNumber){
+
+        Sort sort = Sort.by("title").ascending()
+                .and(Sort.by("description").descending());
+
         Pageable pageable = (Pageable) PageRequest.of(pageNumber, pageSize);
-        Page<Product> productsPage = productRepository.findAllByTitle(query, pageable);
+
+        Page<Product> productsPage = productRepository.findAllByTitleContaining(query, pageable);
         List<Product> products = productsPage.get().toList();
         List<GenericProductDTO> genericProductDTOS = new ArrayList<>();
         for(Product product : products){
