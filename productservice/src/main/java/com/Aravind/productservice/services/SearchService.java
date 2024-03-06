@@ -1,6 +1,7 @@
 package com.Aravind.productservice.services;
 
 import com.Aravind.productservice.DTOs.GenericProductDTO;
+import com.Aravind.productservice.DTOs.SortValue;
 import com.Aravind.productservice.models.Product;
 import com.Aravind.productservice.repositories.ProductRepository;
 import org.springframework.data.domain.*;
@@ -15,10 +16,17 @@ public class SearchService {
     public SearchService(ProductRepository productRepository){
         this.productRepository = productRepository;
     }
-    public Page<GenericProductDTO> search(String query, int pageSize, int pageNumber){
-
+    public Page<GenericProductDTO> search(String query, int pageSize, int pageNumber, List<SortValue> sortValues){
         Sort sort = Sort.by("title").ascending()
                 .and(Sort.by("description").descending());
+
+        for(SortValue sortValue : sortValues){
+            if(sortValue.getOrder().equals("ascending")){
+                sort = sort.by(sortValue.getQuery()).ascending();
+            }else {
+                sort = sort.by(sortValue.getQuery()).descending();
+            }
+        }
 
         Pageable pageable = (Pageable) PageRequest.of(pageNumber, pageSize);
 

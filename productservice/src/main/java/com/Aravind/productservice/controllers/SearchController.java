@@ -18,6 +18,6 @@ public class SearchController {
     }
     @PostMapping
     public Page<GenericProductDTO> search(@RequestBody SearchRequestDTO searchRequestDTO){
-        return searchService.search(searchRequestDTO.getQuery(), searchRequestDTO.getPageSize(), searchRequestDTO.getPageNumber());
+        return searchService.search(searchRequestDTO.getQuery(), searchRequestDTO.getPageSize(), searchRequestDTO.getPageNumber(), searchRequestDTO.getSortValues());
     }
 }
