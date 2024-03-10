@@ -2,11 +2,13 @@ package com.Aravind.productservice.controllers;
 
 import com.Aravind.productservice.DTOs.ExceptionDTO;
 import com.Aravind.productservice.DTOs.GenericProductDTO;
+import com.Aravind.productservice.DTOs.GenericProductDTOLongId;
 import com.Aravind.productservice.Exceptions.NotFoundException;
 import com.Aravind.productservice.Exceptions.TestException;
 import com.Aravind.productservice.security.JwtData;
 import com.Aravind.productservice.security.TokenValidator;
 import com.Aravind.productservice.services.ProductService;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -28,15 +30,32 @@ public class ProductController {
 //    public ProductController(@Qualifier("fakeStoreService") ProductService productService){
 //        this.productService = productService;
 //    }
-    public ProductController(@Qualifier("selfProductService") ProductService productService, TokenValidator tokenValidator){
+    public ProductController(@Qualifier("fakeStoreService") ProductService productService, TokenValidator tokenValidator){
         this.productService = productService;
-        this.tokenValidator = this.tokenValidator;
+        this.tokenValidator = tokenValidator;
     }
 
 
+//    @GetMapping("{id}")
+//    public GenericProductDTO getproductById(
+//            @Nullable @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
+//            @PathVariable("id") UUID id) throws NotFoundException, TestException {
+//        System.out.println("Calling methods");
+//        System.out.println("Calling methods again");
+//        Optional<JwtData> jwtDataOptional = tokenValidator.validateToken(authToken);
+//        if(jwtDataOptional.isPresent()){
+//            //do whatever we wants
+//        }
+//        GenericProductDTO genericProductDTO = productService.getProductById(id);
+//        if(genericProductDTO == null){
+//            return new GenericProductDTO();
+//        }
+//        return genericProductDTO;
+//    }
+
     @GetMapping("{id}")
-    public GenericProductDTO getproductById(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
+    public GenericProductDTOLongId getproductById(
+            @Nullable @RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
             @PathVariable("id") UUID id) throws NotFoundException, TestException {
         System.out.println("Calling methods");
         System.out.println("Calling methods again");
@@ -44,9 +63,9 @@ public class ProductController {
         if(jwtDataOptional.isPresent()){
             //do whatever we wants
         }
-        GenericProductDTO genericProductDTO = productService.getProductById(id);
+        GenericProductDTOLongId genericProductDTO = productService.getProductByLongId(id);
         if(genericProductDTO == null){
-            return new GenericProductDTO();
+            return new GenericProductDTOLongId();
         }
         return genericProductDTO;
     }

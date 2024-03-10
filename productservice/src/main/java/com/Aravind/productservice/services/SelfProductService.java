@@ -1,6 +1,7 @@
 package com.Aravind.productservice.services;
 
 import com.Aravind.productservice.DTOs.GenericProductDTO;
+import com.Aravind.productservice.DTOs.GenericProductDTOLongId;
 import com.Aravind.productservice.Exceptions.NotFoundException;
 import com.Aravind.productservice.Exceptions.TestException;
 import com.Aravind.productservice.models.Product;
@@ -28,6 +29,12 @@ public class SelfProductService implements ProductService{
         }
         return convertProductToGenericDTO(product.get());
     }
+
+    @Override
+    public GenericProductDTOLongId getProductByLongId(UUID id) throws NotFoundException, TestException {
+        return null;
+    }
+
     public GenericProductDTO convertProductToGenericDTO(Product product){
         if(product == null){
             return null;

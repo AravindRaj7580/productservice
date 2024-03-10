@@ -1,6 +1,7 @@
 package com.Aravind.productservice.thirdPartyClients.fakeStore;
 
 import com.Aravind.productservice.DTOs.FakeStoreProductDTO;
+import com.Aravind.productservice.DTOs.FakeStoreProductDTOLongId;
 import com.Aravind.productservice.DTOs.GenericProductDTO;
 import com.Aravind.productservice.Exceptions.NotFoundException;
 import com.Aravind.productservice.Exceptions.TestException;
@@ -38,8 +39,22 @@ public class FakeStoreProductClient {
 
     public FakeStoreProductDTO getProductById(UUID id) throws NotFoundException, TestException {
         RestTemplate restTemplate =  restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDTO> response =  restTemplate.getForEntity(productURL, FakeStoreProductDTO.class,id);
+        ResponseEntity<FakeStoreProductDTO> response =  restTemplate.getForEntity(productURL, FakeStoreProductDTO.class,1);
         FakeStoreProductDTO fakeStoreProductDTO =  response.getBody();
+        if(fakeStoreProductDTO == null){
+            throw new TestException("Test check");
+//            returnExceptionStatus();
+        }else if(fakeStoreProductDTO == null){
+            return null;
+            //throw new NotFoundException("fakeStoreDTO not found");
+        }
+        return fakeStoreProductDTO;
+    }
+
+    public FakeStoreProductDTOLongId getProductByLongId(UUID id) throws NotFoundException, TestException {
+        RestTemplate restTemplate =  restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDTOLongId> response =  restTemplate.getForEntity(productURL, FakeStoreProductDTOLongId.class,1);
+        FakeStoreProductDTOLongId fakeStoreProductDTO =  response.getBody();
         if(fakeStoreProductDTO == null){
             throw new TestException("Test check");
 //            returnExceptionStatus();
