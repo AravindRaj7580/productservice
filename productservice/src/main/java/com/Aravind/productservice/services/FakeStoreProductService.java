@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,16 @@ public class FakeStoreProductService implements ProductService{
     private String getAllProductURL = "https://fakestoreapi.com/products";
     private FakeStoreProductClient fakeStoreProductClient;
 
+    private RestTemplate restTemplate;
+
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     public FakeStoreProductService(FakeStoreProductClient fakeStoreProductClient,
-                                   RedisTemplate<String, Object> redisTemplate){
+                                   RedisTemplate<String, Object> redisTemplate,
+                                   RestTemplate restTemplate){
         this.fakeStoreProductClient = fakeStoreProductClient;
         this.redisTemplate = redisTemplate;
+        this.restTemplate = restTemplate;
     }
 
     public GenericProductDTO convertFakeToGenericDTO(FakeStoreProductDTO fakeStoreProductDTO){
@@ -63,6 +68,7 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public GenericProductDTO getProductById(UUID id) throws NotFoundException, TestException {
+        Object userData = restTemplate.getForEntity("http://userservice/users/1", Object.class);
         GenericProductDTO genericProductDTOCache = (GenericProductDTO) redisTemplate.opsForValue().get(String.valueOf(1));
         if(genericProductDTOCache != null){
             return genericProductDTOCache;
